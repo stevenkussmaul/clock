@@ -17,7 +17,7 @@
         }
 
         body {
-            font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Source Code Pro', 'Menlo', 'Consolas', 'DejaVu Sans Mono', 'Courier New', 'Liberation Mono', 'Lucida Console', 'Ubuntu Mono', monospace;
+            font-family: 'Andale Mono', 'Menlo', 'Roboto Mono', 'Ubuntu Mono', 'SF Mono', 'Monaco', 'Inconsolata', 'Source Code Pro', 'Consolas', 'DejaVu Sans Mono', 'Courier New', 'Liberation Mono', 'Lucida Console', monospace;
             background: black;
             color: #ffffff;
             height: 100vh;
@@ -32,9 +32,12 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0;
-            width: 100vw;
+            gap: 2;
             height: 100vh;
+            width: 100vw;
+            font-weight: bold;
+            fill: #ffffff99;
+
         }
 
         .digit-span {
@@ -43,8 +46,8 @@
         }
 
         .digit-svg {
-            width: 230px;
-            height: 600px;
+            width: 22.46vw;
+            height: 100vh;
             display: block;
         }
 
@@ -55,31 +58,24 @@
         }
 
         .colon-svg {
-            width: 104px;
-            height: 600px;
+            width: 10.16vw;
+            height: 100vh;
             display: block;
         }
 
         .digit {
-            font-family: 'Andale Mono', 'Menlo', 'Roboto Mono', 'Ubuntu Mono', 'SF Mono', 'Monaco', 'Inconsolata', 'Source Code Pro', 'Consolas', 'DejaVu Sans Mono', 'Courier New', 'Liberation Mono', 'Lucida Console', monospace;
-            font-weight: bold;
-            fill: #ffffff68;
             text-anchor: middle;
             dominant-baseline: central;
-            transform: scaleY(1.7);
             transform-origin: center;
-            font-size: 40vw;
+            font-size: 125px;
         }
 
         .colon {
-            font-family: monospace;
-            font-weight: bold;
-            fill: #ffffff68;
+            font-weight: normal;
             text-anchor: middle;
             dominant-baseline: central;
-            transform: scaleY(2.5);
             transform-origin: center;
-            font-size: 15vw;
+            font-size: 125px;
         }
 
         .pm-indicator {
@@ -97,54 +93,55 @@
         }
 
         .pm-text {
-            font-family: 'Andale Mono', 'Menlo', 'Roboto Mono', 'Ubuntu Mono', 'SF Mono', 'Monaco', 'Inconsolata', 'Source Code Pro', 'Consolas', 'DejaVu Sans Mono', 'Courier New', 'Liberation Mono', 'Lucida Console', monospace; font-weight: bold;
+            font-family: monospace;
             fill: red;
             text-anchor: middle;
             dominant-baseline: central;
-            font-size: 4vh;
+            font-size: 100px;
         }
     </style>
 </head>
 <body>
     <div class="clock-container">
+        
         <!-- Hour tens digit -->
         <span class="digit-span">
-            <svg class="digit-svg" viewBox="0 0 230 600">
-                <text class="digit" id="hour-tens" x="115" y="300">1</text>
+            <svg class="digit-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <text class="digit" id="hour-tens" x="50" y="50">1</text>
             </svg>
         </span>
         
         <!-- Hour ones digit -->
         <span class="digit-span">
-            <svg class="digit-svg" viewBox="0 0 230 600">
-                <text class="digit" id="hour-ones" x="115" y="300">2</text>
+            <svg class="digit-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <text class="digit" id="hour-ones" x="50" y="50">2</text>
             </svg>
         </span>
         
         <!-- Colon -->
         <span class="colon-span">
-            <svg class="colon-svg" viewBox="0 0 104 600">
-                <text class="colon" x="52" y="300">:</text>
+            <svg class="colon-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <text class="colon" x="50" y="50">:</text>
             </svg>
         </span>
         
         <!-- Minute tens digit -->
         <span class="digit-span">
-            <svg class="digit-svg" viewBox="0 0 230 600">
-                <text class="digit" id="minute-tens" x="115" y="300">3</text>
+            <svg class="digit-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <text class="digit" id="minute-tens" x="50" y="50">3</text>
             </svg>
         </span>
         
         <!-- Minute ones digit -->
         <span class="digit-span">
-            <svg class="digit-svg" viewBox="0 0 230 600">
-                <text class="digit" id="minute-ones" x="115" y="300">4</text>
+            <svg class="digit-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <text class="digit" id="minute-ones" x="50" y="50">4</text>
             </svg>
         </span>
     </div>
     <div class="pm-indicator" id="pm-indicator">
-        <svg width="100%" height="100%" viewBox="0 0 80 40">
-            <text class="pm-text" x="40" y="20">PM</text>
+        <svg width="100%" height="100%" viewBox="0 0 100 100">
+            <text class="pm-text" x="50" y="50">PM</text>
         </svg>
     </div>
 
