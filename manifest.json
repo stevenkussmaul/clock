@@ -2,7 +2,7 @@
   "name": "Full Screen Digital Clock",
   "short_name": "Clock",
   "description": "A beautiful full-screen digital clock display",
-  "start_url": "./clock.html",
+  "start_url": "clock.html",
   "display": "fullscreen",
   "orientation": "landscape",
   "theme_color": "#000000",
