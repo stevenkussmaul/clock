@@ -17,8 +17,9 @@
         }
 
         body {
-            font-family: 'Andale Mono', 'Menlo', 'Roboto Mono', 'Ubuntu Mono', 'SF Mono', 'Monaco', 'Inconsolata', 'Source Code Pro', 'Consolas', 'DejaVu Sans Mono', 'Courier New', 'Liberation Mono', 'Lucida Console', monospace;
+            font-family: monospace;
             background: black;
+            color: #ffffff;
             height: 100vh;
             width: 100vw;
             overflow: hidden;
@@ -31,11 +32,11 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0;
+            gap: 2;
             height: 100vh;
             width: 100vw;
             font-weight: bold;
-            fill: #ffffffff;
+            fill: #ffffff99;
 
         }
 
@@ -65,20 +66,16 @@
         .digit {
             text-anchor: middle;
             dominant-baseline: central;
-            transform-box: fill-box;
-            transform-origin: 50% 50%;
-            font-size: 125px; /* keep height within 100 viewBox units */
-            transform: scaleX(1.6); /* widen without affecting height */
+            transform-origin: center;
+            font-size: 110px;
         }
 
         .colon {
             font-weight: normal;
             text-anchor: middle;
             dominant-baseline: central;
-            transform-box: fill-box;
-            transform-origin: 50% 50%;
-            font-size: 125px; /* keep height within 100 viewBox units */
-            transform: scaleX(5); /* widen without affecting height */
+            transform-origin: center;
+            font-size: 110px;
         }
 
         .pm-indicator {
@@ -124,7 +121,7 @@
         <!-- Colon -->
         <span class="colon-span">
             <svg class="colon-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
-                <text class="colon" x="50" y="50">:</text>
+                <text class="colon" x="50" y="35">:</text>
             </svg>
         </span>
         
@@ -192,6 +189,20 @@
                 pmIndicator.classList.add('show');
             }
         }
+
+        function enterFullscreen() {
+            const elem = document.documentElement;
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen();
+            } else if (elem.webkitRequestFullscreen) { // Safari
+                elem.webkitRequestFullscreen();
+            }
+        }
+
+        // Listen for user interactions to enable fullscreen
+        document.addEventListener('click', enterFullscreen);
+        document.addEventListener('keypress', enterFullscreen);
+        document.addEventListener('touchstart', enterFullscreen);
 
         // Start the clock
         updateClock();
