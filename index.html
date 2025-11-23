@@ -8,6 +8,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-fullscreen">
     <link rel="manifest" href="manifest.json">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap" rel="stylesheet">
     <title>Full Screen Clock</title>
     <style>
         * {
@@ -17,7 +18,7 @@
         }
 
         body {
-            font-family: monospace;
+            font-family: 'Oswald', monospace;
             background: black;
             color: #ffffff;
             height: 100vh;
@@ -36,12 +37,12 @@
             height: 100vh;
             width: 100vw;
             font-weight: bold;
-            fill: #ffffff99;
+            fill: #ffffffcc;
 
         }
 
         .digit-span {
-            /* border: 1px solid red; */
+            border: 1px solid red;
             display: inline-block;
         }
 
@@ -68,10 +69,11 @@
             dominant-baseline: central;
             transform-origin: center;
             font-size: 110px;
+            font-weight: bold;
         }
 
         .colon {
-            font-weight: normal;
+            font-weight: bold;
             text-anchor: middle;
             dominant-baseline: central;
             transform-origin: center;
@@ -107,35 +109,35 @@
         <!-- Hour tens digit -->
         <span class="digit-span">
             <svg class="digit-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
-                <text class="digit" id="hour-tens" x="50" y="50">1</text>
+                <text class="digit" id="hour-tens" x="50" y="45" textLength="100" lengthAdjust="spacingAndGlyphs">1</text>
             </svg>
         </span>
         
         <!-- Hour ones digit -->
         <span class="digit-span">
             <svg class="digit-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
-                <text class="digit" id="hour-ones" x="50" y="50">2</text>
+                <text class="digit" id="hour-ones" x="50" y="45" textLength="100" lengthAdjust="spacingAndGlyphs">2</text>
             </svg>
         </span>
         
         <!-- Colon -->
         <span class="colon-span">
             <svg class="colon-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
-                <text class="colon" x="50" y="35">:</text>
+                <text class="colon" x="50" y="33" textLength="100" lengthAdjust="spacingAndGlyphs">:</text>
             </svg>
         </span>
         
         <!-- Minute tens digit -->
         <span class="digit-span">
             <svg class="digit-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
-                <text class="digit" id="minute-tens" x="50" y="50">3</text>
+                <text class="digit" id="minute-tens" x="50" y="45" textLength="100" lengthAdjust="spacingAndGlyphs">3</text>
             </svg>
         </span>
         
         <!-- Minute ones digit -->
         <span class="digit-span">
             <svg class="digit-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
-                <text class="digit" id="minute-ones" x="50" y="50">4</text>
+                <text class="digit" id="minute-ones" x="50" y="45" textLength="100" lengthAdjust="spacingAndGlyphs">4</text>
             </svg>
         </span>
     </div>
