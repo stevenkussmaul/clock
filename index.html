@@ -78,6 +78,11 @@
             dominant-baseline: central;
             transform-origin: center;
             font-size: 110px;
+            transition: opacity 0.2s ease-in-out;
+        }
+
+        .colon.blink {
+            opacity: 0;
         }
 
         .pm-indicator {
@@ -123,7 +128,7 @@
         <!-- Colon -->
         <span class="colon-span">
             <svg class="colon-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
-                <text class="colon" x="50" y="33" textLength="100" lengthAdjust="spacingAndGlyphs">:</text>
+                <text class="colon" id="colon" x="50" y="33" textLength="100" lengthAdjust="spacingAndGlyphs">:</text>
             </svg>
         </span>
         
@@ -157,6 +162,7 @@
             const hourOnes = document.getElementById('hour-ones');
             const minuteTens = document.getElementById('minute-tens');
             const minuteOnes = document.getElementById('minute-ones');
+            const colon = document.getElementById('colon');
             
             // Format time in 12-hour format
             let hours = now.getHours();
@@ -191,6 +197,11 @@
                 pmIndicator.classList.add('show');
             }
         }
+        
+        function toggleColon() {
+            const colon = document.getElementById('colon');
+            colon.classList.toggle('blink');
+        }
 
         function enterFullscreen() {
             const elem = document.documentElement;
@@ -208,7 +219,10 @@
 
         // Start the clock
         updateClock();
-        setInterval(updateClock, 10000);
+        setInterval(updateClock, 1000);
+        
+        // Start colon blinking (2 seconds on, 2 seconds off = 4 second interval)
+        setInterval(toggleColon, 2000);
     </script>
 </body>
 </html>
