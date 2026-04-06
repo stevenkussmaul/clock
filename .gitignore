@@ -1,34 +1,127 @@
-# Gradle files
-.gradle/
+# ------------------------------------------
+# Docker
+# ------------------------------------------
+# Override files (used for local dev overrides, should not be committed)
+docker-compose.override.yml
+
+# Docker build cache and temporary files
+*.tar
+*.tar.gz
+
+# ------------------------------------------
+# Environment and Secrets
+# ------------------------------------------
+# Environment variable files that may contain sensitive data
+.env
+*.env
+.env.*
+!.env.example
+
+# ------------------------------------------
+# Node.js
+# ------------------------------------------
+# Node modules are built inside the container, never commit them
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+
+# ------------------------------------------
+# Python
+# ------------------------------------------
+# Python cache and compiled files
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+dist/
 build/
+*.egg
 
-# Local configuration file (sdk path, etc)
-local.properties
+# Virtual environments
+venv/
+.venv/
+env/
 
-# Log/OS Files
-*.log
+# ------------------------------------------
+# TrueNAS Volume Data
+# ------------------------------------------
+# Never commit mounted volume data from your TrueNAS datasets
+magicmirror-data/
+mmpm-data/
+config/
+modules/
+css/
 
-# Android Studio generated files and folders
-captures/
-.externalNativeBuild/
-.cxx/
-*.aab
-*.apk
-output-metadata.json
+# ------------------------------------------
+# Operating System Files
+# ------------------------------------------
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
 
-# IntelliJ
-*.iml
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+.directory
+
+# ------------------------------------------
+# IDE and Editor Files
+# ------------------------------------------
+# Visual Studio Code
+.vscode/
+*.code-workspace
+
+# JetBrains (IntelliJ, PyCharm, WebStorm)
 .idea/
-misc.xml
-deploymentTargetDropDown.xml
-render.experimental.xml
+*.iml
+*.iws
+*.ipr
+out/
 
-# Keystore files
-*.jks
-*.keystore
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
 
-# Google Services (e.g. APIs or Firebase)
-google-services.json
+# Vim / Neovim
+*.swp
+*.swo
+*.swn
+*.vim
+Session.vim
+.netrwhist
 
-# Android Profiling
-*.hprof
+# Emacs
+*~
+\#*\#
+.emacs.desktop
+.emacs.desktop.lock
+
+# ------------------------------------------
+# Logs and Temporary Files
+# ------------------------------------------
+*.log
+*.tmp
+*.temp
+*.bak
+*.backup
+*.orig
+
+# ------------------------------------------
+# Miscellaneous
+# ------------------------------------------
+# Coverage reports
+coverage/
+.nyc_output/
+
+# Build output
+dist/
+build/

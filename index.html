@@ -8,7 +8,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-fullscreen">
     <link rel="manifest" href="manifest.json">
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300..900&display=swap" rel="stylesheet">
     <title>Full Screen Clock</title>
     <style>
         * {
@@ -17,8 +17,12 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --clock-font: 'Roboto Condensed', sans-serif;
+        }
+
         body {
-            font-family: 'Oswald', monospace;
+            font-family: var(--clock-font);
             background: black;
             color: #ffffff;
             height: 100vh;
@@ -33,16 +37,13 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 2;
             height: 100vh;
             width: 100vw;
-            font-weight: bold;
+            font-weight: 700;
             fill: #ffffffcc;
-
         }
 
         .digit-span {
-            /* border: 1px solid red; */
             display: inline-block;
         }
 
@@ -53,7 +54,6 @@
         }
 
         .colon-span {
-            /* border: 1px solid red; */
             display: inline;
             align-self: center;
         }
@@ -69,11 +69,9 @@
             dominant-baseline: central;
             transform-origin: center;
             font-size: 110px;
-            font-weight: normal;
         }
 
         .colon {
-            font-weight: bold;
             text-anchor: middle;
             dominant-baseline: central;
             transform-origin: center;
@@ -110,35 +108,35 @@
 </head>
 <body>
     <div class="clock-container">
-        
+
         <!-- Hour tens digit -->
-        <span class="digit-span">
+        <span class="digit-span" id="hour-tens-span">
             <svg class="digit-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
                 <text class="digit" id="hour-tens" x="50" y="45" textLength="100" lengthAdjust="spacingAndGlyphs">1</text>
             </svg>
         </span>
-        
+
         <!-- Hour ones digit -->
         <span class="digit-span">
             <svg class="digit-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
                 <text class="digit" id="hour-ones" x="50" y="45" textLength="100" lengthAdjust="spacingAndGlyphs">2</text>
             </svg>
         </span>
-        
+
         <!-- Colon -->
         <span class="colon-span">
             <svg class="colon-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
                 <text class="colon" id="colon" x="50" y="33" textLength="100" lengthAdjust="spacingAndGlyphs">:</text>
             </svg>
         </span>
-        
+
         <!-- Minute tens digit -->
         <span class="digit-span">
             <svg class="digit-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
                 <text class="digit" id="minute-tens" x="50" y="45" textLength="100" lengthAdjust="spacingAndGlyphs">3</text>
             </svg>
         </span>
-        
+
         <!-- Minute ones digit -->
         <span class="digit-span">
             <svg class="digit-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
@@ -156,40 +154,48 @@
         function updateClock() {
             const now = new Date();
             const pmIndicator = document.getElementById('pm-indicator');
-            
+
             // Get individual digit elements
             const hourTens = document.getElementById('hour-tens');
             const hourOnes = document.getElementById('hour-ones');
             const minuteTens = document.getElementById('minute-tens');
             const minuteOnes = document.getElementById('minute-ones');
             const colon = document.getElementById('colon');
-            
+
             // Format time in 12-hour format
             let hours = now.getHours();
             const minutes = now.getMinutes();
             const isAM = hours < 12;
-            
+
             // Convert to 12-hour format
             hours = hours % 12;
             hours = hours ? hours : 12; // 0 should be 12
-            
+
             // Format hours and minutes with leading zeros for calculation
             const hoursStr = hours.toString().padStart(2, '0');
             const minutesStr = minutes.toString().padStart(2, '0');
-            
+
             // Update individual digit elements
             hourTens.textContent = hoursStr[0];
             hourOnes.textContent = hoursStr[1];
             minuteTens.textContent = minutesStr[0];
             minuteOnes.textContent = minutesStr[1];
-            
-            // Hide hour tens digit if it's 0 (for times like 1:00, 2:00, etc.)
-            if (hoursStr[0] === '0') {
-                hourTens.style.opacity = '0';
-            } else {
-                hourTens.style.opacity = '1';
-            }
-            
+
+            // Hide/show hour tens digit and redistribute widths
+            const hourTensSpan = document.getElementById('hour-tens-span');
+            const showTens = hoursStr[0] !== '0';
+            const numDigits = showTens ? 4 : 3;
+            // Keep digit:colon ratio consistent (original: 22.46 / 10.16 ≈ 2.21)
+            const digitRatio = 2.21;
+            const colonVw = 100 / (numDigits * digitRatio + 1);
+            const digitVw = colonVw * digitRatio;
+
+            hourTensSpan.style.display = showTens ? 'inline-block' : 'none';
+            document.querySelectorAll('.digit-svg').forEach(svg => {
+                svg.style.width = digitVw + 'vw';
+            });
+            document.querySelector('.colon-svg').style.width = colonVw + 'vw';
+
             // Show/hide PM indicator
             if (isAM) {
                 pmIndicator.classList.remove('show');
@@ -197,7 +203,7 @@
                 pmIndicator.classList.add('show');
             }
         }
-        
+
         function toggleColon() {
             const colon = document.getElementById('colon');
             colon.classList.toggle('blink');
@@ -217,12 +223,53 @@
         document.addEventListener('keypress', enterFullscreen);
         document.addEventListener('touchstart', enterFullscreen);
 
+        // After Oswald loads, measure the widest digit and set a uniform
+        // viewBox width for all digit SVGs so every digit gets the same
+        // horizontal stretch — fixing inconsistent font-weight appearance.
+        document.fonts.ready.then(() => {
+            const ns = 'http://www.w3.org/2000/svg';
+            const tmp = document.createElementNS(ns, 'svg');
+            tmp.style.position = 'absolute';
+            tmp.style.visibility = 'hidden';
+            tmp.setAttribute('viewBox', '0 0 1000 1000');
+            document.body.appendChild(tmp);
+
+            const txt = document.createElementNS(ns, 'text');
+            const clockFont = getComputedStyle(document.documentElement).getPropertyValue('--clock-font').trim();
+            txt.setAttribute('font-family', clockFont);
+            txt.setAttribute('font-size', '110');
+            txt.setAttribute('x', '0');
+            txt.setAttribute('y', '110');
+            tmp.appendChild(txt);
+
+            // Find the widest digit
+            let maxW = 0;
+            for (let d = 0; d <= 9; d++) {
+                txt.textContent = d.toString();
+                maxW = Math.max(maxW, txt.getBBox().width);
+            }
+
+            document.body.removeChild(tmp);
+
+            // Set every digit's viewBox width to the widest glyph width,
+            // keeping viewBox height at 100. This way textLength stretches
+            // each glyph by the same factor relative to its natural width.
+            const vbW = Math.ceil(maxW);
+            document.querySelectorAll('.digit-svg').forEach(svg => {
+                svg.setAttribute('viewBox', `0 0 ${vbW} 100`);
+            });
+            document.querySelectorAll('.digit').forEach(el => {
+                el.setAttribute('textLength', vbW.toString());
+                el.setAttribute('x', (vbW / 2).toString());
+            });
+        });
+
         // Start the clock
         updateClock();
         setInterval(updateClock, 1000);
-        
+
         // Start colon blinking (2 seconds on, 2 seconds off = 4 second interval)
-        setInterval(toggleColon, 4000);
+        setInterval(toggleColon, 1000);
     </script>
 </body>
 </html>
